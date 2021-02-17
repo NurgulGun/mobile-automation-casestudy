@@ -44,13 +44,15 @@ public class BasketImpl extends BaseTest {
     @Step("Sepetteki tüm ürünler <count> arttırılır.")
     public void increaseProduct(int count) {
         int currentCount;
+            scrollDown();
+
         for (int i=0; i<ADD_BUTTONS.size();i++) {
-            if (i>2 && i%2 == 0) {
-                scrollDown();
-            }
             currentCount = Integer.parseInt(PRODUCT_COUNTS.get(i).getText());
-            tapElement(ADD_BUTTONS.get(i));
-            Assert.assertTrue("******** Urun attırılamadı ********", Integer.parseInt(PRODUCT_COUNTS.get(i).getText()) > currentCount);
+
+            for (int p=0; p<count;p++){
+                tapElement(ADD_BUTTONS.get(i));
+            }
+            Assert.assertEquals("******** Urun attırılamadı ********", Integer.parseInt(PRODUCT_COUNTS.get(i).getText()), currentCount + count);
         }
         System.out.println("-> Sepetteki Tum Urunler arttirildi");
     }
